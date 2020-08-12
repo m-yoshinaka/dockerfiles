@@ -19,12 +19,10 @@ RUN curl -LO https://bootstrap.pypa.io/get-pip.py \
 
 ARG UID=1000
 ARG UNAME=docker
-ARG PASSWD=docker-user
 RUN useradd -m -u ${UID} -G sudo ${UNAME} -s /bin/bash -d /home/${UNAME} -m \
-    && echo ${UNAME}:${PASSWD} | chpasswd \
     && chown -R ${UNAME} /home/${UNAME} \
-    && chsh -s /bin/bash
-USER ${UID}
+    && echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/${UNAME}
+USER ${UNAME}
 WORKDIR /home/${UNAME}
 RUN mkdir .ssh && chmod 700 .ssh \
     && touch .ssh/authorized_keys \
