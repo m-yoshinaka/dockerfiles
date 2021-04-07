@@ -12,6 +12,6 @@ $ docker build --build-arg UID=$UID --build-arg GID=$(id -g) \
 
 ## Run container
 ```
-$ docker run -it --rm --ipc=host --gpus=all --name bar\
+$ docker run -it --rm --ipc=host --gpus=all --name bar \
     foo/pytorch:1.8.0-cuda10.2-py3.7 /bin/bash --login
 ```
